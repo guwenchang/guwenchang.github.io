@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>spring-security初探 | 顾小白的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="spring-security初探对于后台开发来说权限控制是一个后台系统首要考虑的问题，通常来说安全框架的基本要素是认证、授权.所谓认证就是对你身份的认证，识别你这个人的身份，授权就是当你被认证之后对于访问某一资源是否具有相应的的角色或者权限，安全框架无非是围着这个两个核心的功能来搭建。那么问题来了，spring-se">
+  <meta name="description" content="对于后台开发来说权限控制是一个后台系统首要考虑的问题，通常来说安全框架的基本要素是认证、授权.所谓认证就是对你身份的认证，识别你这个人的身份，授权就是当你被认证之后对于访问某一资源是否具有相应的的角色或者权限，安全框架无非是围着这个两个核心的功能来搭建。那么问题来了，spring-security是怎么实现这一过程的呢">
 <meta name="keywords" content="spring-security">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spring-security初探">
-<meta property="og:url" content="http://yoursite.com/2017/10/04/spring-security初探/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/10/04/spring-security初探(1)/index.html">
 <meta property="og:site_name" content="顾小白的博客">
-<meta property="og:description" content="spring-security初探对于后台开发来说权限控制是一个后台系统首要考虑的问题，通常来说安全框架的基本要素是认证、授权.所谓认证就是对你身份的认证，识别你这个人的身份，授权就是当你被认证之后对于访问某一资源是否具有相应的的角色或者权限，安全框架无非是围着这个两个核心的功能来搭建。那么问题来了，spring-security是怎么实现这一过程的呢? ##spring-security的工作流">
-<meta property="og:updated_time" content="2018-02-24T03:23:03.507Z">
+<meta property="og:description" content="对于后台开发来说权限控制是一个后台系统首要考虑的问题，通常来说安全框架的基本要素是认证、授权.所谓认证就是对你身份的认证，识别你这个人的身份，授权就是当你被认证之后对于访问某一资源是否具有相应的的角色或者权限，安全框架无非是围着这个两个核心的功能来搭建。那么问题来了，spring-security是怎么实现这一过程的呢? ##spring-security的工作流程  用户输入用户标识和密码，拦截">
+<meta property="og:updated_time" content="2018-02-24T04:36:21.880Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring-security初探">
-<meta name="twitter:description" content="spring-security初探对于后台开发来说权限控制是一个后台系统首要考虑的问题，通常来说安全框架的基本要素是认证、授权.所谓认证就是对你身份的认证，识别你这个人的身份，授权就是当你被认证之后对于访问某一资源是否具有相应的的角色或者权限，安全框架无非是围着这个两个核心的功能来搭建。那么问题来了，spring-security是怎么实现这一过程的呢? ##spring-security的工作流">
+<meta name="twitter:description" content="对于后台开发来说权限控制是一个后台系统首要考虑的问题，通常来说安全框架的基本要素是认证、授权.所谓认证就是对你身份的认证，识别你这个人的身份，授权就是当你被认证之后对于访问某一资源是否具有相应的的角色或者权限，安全框架无非是围着这个两个核心的功能来搭建。那么问题来了，spring-security是怎么实现这一过程的呢? ##spring-security的工作流程  用户输入用户标识和密码，拦截">
   
     <link rel="alternative" href="/atom.xml" title="顾小白的博客" type="application/atom+xml">
   
@@ -146,7 +146,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-spring-security初探" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-spring-security初探(1)" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -158,7 +158,7 @@
   
 
         
-        <a href="/2017/10/04/spring-security初探/" class="archive-article-date">
+        <a href="/2017/10/04/spring-security初探(1)/" class="archive-article-date">
   	<time datetime="2017-10-04T12:21:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-04</time>
 </a>
         
@@ -166,7 +166,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="spring-security初探"><a href="#spring-security初探" class="headerlink" title="spring-security初探"></a>spring-security初探</h1><p>对于后台开发来说权限控制是一个后台系统首要考虑的问题，通常来说安全框架的基本要素是认证、授权.所谓认证就是对你身份的认证，识别你这个人的身份，授权就是当你被认证之后对于访问某一资源是否具有相应的的角色或者权限，安全框架无非是围着这个两个核心的功能来搭建。那么问题来了，spring-security是怎么实现这一过程的呢?</p>
+        <p>对于后台开发来说权限控制是一个后台系统首要考虑的问题，通常来说安全框架的基本要素是认证、授权.所谓认证就是对你身份的认证，识别你这个人的身份，授权就是当你被认证之后对于访问某一资源是否具有相应的的角色或者权限，安全框架无非是围着这个两个核心的功能来搭建。那么问题来了，spring-security是怎么实现这一过程的呢?</p>
 <p>##spring-security的工作流程</p>
 <ol>
 <li>用户输入用户标识和密码，拦截器（springSecurityFilterChain）拦截用户的输入封装成UsernamePasswordAuthenticationToken。</li>
@@ -264,7 +264,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/10/04/spring-security初探/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/10/04/spring-security初探(1)/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -278,18 +278,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/10/04/spring-security初探(1)/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/10/06/hello blog/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          spring-security初探
+          hello blog
         
       </div>
     </a>
   
   
-    <a href="/2017/10/03/hello blog(1)/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">hello blog</div>
+    <a href="/2017/10/04/spring-security初探/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">spring-security初探</div>
       <i class="icon-circle-right"></i>
     </a>
   
