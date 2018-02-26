@@ -6,18 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>浅谈快速开发的一些思考（一） | 顾小白的博客</title>
+  <title>浅谈快速开发的一些思考 | 顾小白的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="在公司开发，有很多时候我们需要独立去开发一些小的独立的项目，而且一般这种小的项目基本都是一个人来完成，但是往往我们去开发这些小的项目的时候希望可以快速的去将项目的整个框架搭建起来，不用过多去关注基础层的东西，而只需要去落实自己的业务代码和业务需求就可以了，今天就来总结一下自己对于快速搭建一个开发框架和基础代码编写的一些">
 <meta name="keywords" content="技术杂谈">
 <meta property="og:type" content="article">
-<meta property="og:title" content="浅谈快速开发的一些思考（一）">
-<meta property="og:url" content="http://yoursite.com/2017/12/10/浅谈快速开发的一些思考（一）/index.html">
+<meta property="og:title" content="浅谈快速开发的一些思考">
+<meta property="og:url" content="http://yoursite.com/2017/12/10/浅谈快速开发的一些思考（一）序言/index.html">
 <meta property="og:site_name" content="顾小白的博客">
 <meta property="og:description" content="在公司开发，有很多时候我们需要独立去开发一些小的独立的项目，而且一般这种小的项目基本都是一个人来完成，但是往往我们去开发这些小的项目的时候希望可以快速的去将项目的整个框架搭建起来，不用过多去关注基础层的东西，而只需要去落实自己的业务代码和业务需求就可以了，今天就来总结一下自己对于快速搭建一个开发框架和基础代码编写的一些想法。关于技术选型来说，在java中，框架的集大成者莫过于spring了，spr">
-<meta property="og:updated_time" content="2018-02-26T09:48:46.018Z">
+<meta property="og:updated_time" content="2018-02-26T09:41:42.779Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浅谈快速开发的一些思考（一）">
+<meta name="twitter:title" content="浅谈快速开发的一些思考">
 <meta name="twitter:description" content="在公司开发，有很多时候我们需要独立去开发一些小的独立的项目，而且一般这种小的项目基本都是一个人来完成，但是往往我们去开发这些小的项目的时候希望可以快速的去将项目的整个框架搭建起来，不用过多去关注基础层的东西，而只需要去落实自己的业务代码和业务需求就可以了，今天就来总结一下自己对于快速搭建一个开发框架和基础代码编写的一些想法。关于技术选型来说，在java中，框架的集大成者莫过于spring了，spr">
   
     <link rel="alternative" href="/atom.xml" title="顾小白的博客" type="application/atom+xml">
@@ -146,19 +146,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-浅谈快速开发的一些思考（一）" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-浅谈快速开发的一些思考（一）序言" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      浅谈快速开发的一些思考（一）
+      浅谈快速开发的一些思考
     </h1>
   
 
         
-        <a href="/2017/12/10/浅谈快速开发的一些思考（一）/" class="archive-article-date">
+        <a href="/2017/12/10/浅谈快速开发的一些思考（一）序言/" class="archive-article-date">
   	<time datetime="2017-12-10T13:21:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-10</time>
 </a>
         
@@ -190,7 +190,7 @@
 <li>创建HelloController类，内容如下</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello World"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>启动主程序，打开浏览器访问localhost:8080/hello，可以看到页面输出Hello World</p>
+<p>启动主程序，打开浏览器访问<a href="http://localhost:8080/hello，可以看到页面输出Hello" target="_blank" rel="noopener">http://localhost:8080/hello，可以看到页面输出Hello</a> World</p>
 
       
 
@@ -291,7 +291,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/12/10/浅谈快速开发的一些思考（一）/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/12/10/浅谈快速开发的一些思考（一）序言/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -305,11 +305,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/02/22/2018写给自己/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/12/12/浅谈快速开发的一些思考（二）controller规范/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          2018愿你做最美好的自己！
+          浅谈快速开发的一些思考（二）controller规范
         
       </div>
     </a>
@@ -446,7 +446,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring-security</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -454,7 +454,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">spring-security</a>
               </li>
             
             <div class="clearfix"></div>
