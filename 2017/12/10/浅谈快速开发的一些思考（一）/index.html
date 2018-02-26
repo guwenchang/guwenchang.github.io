@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>MySQL 处理数据时的一些优化查询速度方法 | 顾小白的博客</title>
+  <title>浅谈快速开发的一些思考（一） | 顾小白的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在参与实际项目中，当 MySQL 表的数据量达到百万级时，普通的 SQL 查询效率呈直线下降，而且如果 where 中的查询条件较多时，其查询速度无法容忍。想想可知，假如我们查询淘宝的一个订单详情，如果查询时间高达几十秒，这么高的查询延时，任何用户都会抓狂。因此如何提高 SQL 语句查询效率，显得十分重要。 查询速度慢">
-<meta name="keywords" content="mysql">
+  <meta name="description" content="在公司开发，有很多时候我们需要独立去开发一些小的独立的项目，而且一般这种小的项目基本都是一个人来完成，但是往往我们去开发这些小的项目的时候希望可以快速的去将项目的整个框架搭建起来，不用过多去关注基础层的东西，而只需要去落实自己的业务代码和业务需求就可以了，今天就来总结一下自己对于快速搭建一个开发框架和基础代码编写的一些">
+<meta name="keywords" content="技术杂谈">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL 处理数据时的一些优化查询速度方法">
-<meta property="og:url" content="http://yoursite.com/2017/10/20/MySQL 处理数据时的一些优化查询速度方法/index.html">
+<meta property="og:title" content="浅谈快速开发的一些思考（一）">
+<meta property="og:url" content="http://yoursite.com/2017/12/10/浅谈快速开发的一些思考（一）/index.html">
 <meta property="og:site_name" content="顾小白的博客">
-<meta property="og:description" content="在参与实际项目中，当 MySQL 表的数据量达到百万级时，普通的 SQL 查询效率呈直线下降，而且如果 where 中的查询条件较多时，其查询速度无法容忍。想想可知，假如我们查询淘宝的一个订单详情，如果查询时间高达几十秒，这么高的查询延时，任何用户都会抓狂。因此如何提高 SQL 语句查询效率，显得十分重要。 查询速度慢的原因 1、没有索引或者没有用到索引（这是查询慢最常见的问题，是程序设计的缺陷）">
-<meta property="og:updated_time" content="2018-02-24T07:26:57.296Z">
+<meta property="og:description" content="在公司开发，有很多时候我们需要独立去开发一些小的独立的项目，而且一般这种小的项目基本都是一个人来完成，但是往往我们去开发这些小的项目的时候希望可以快速的去将项目的整个框架搭建起来，不用过多去关注基础层的东西，而只需要去落实自己的业务代码和业务需求就可以了，今天就来总结一下自己对于快速搭建一个开发框架和基础代码编写的一些想法。关于技术选型来说，在java中，框架的集大成者莫过于spring了，spr">
+<meta property="og:updated_time" content="2018-02-26T09:43:00.508Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL 处理数据时的一些优化查询速度方法">
-<meta name="twitter:description" content="在参与实际项目中，当 MySQL 表的数据量达到百万级时，普通的 SQL 查询效率呈直线下降，而且如果 where 中的查询条件较多时，其查询速度无法容忍。想想可知，假如我们查询淘宝的一个订单详情，如果查询时间高达几十秒，这么高的查询延时，任何用户都会抓狂。因此如何提高 SQL 语句查询效率，显得十分重要。 查询速度慢的原因 1、没有索引或者没有用到索引（这是查询慢最常见的问题，是程序设计的缺陷）">
+<meta name="twitter:title" content="浅谈快速开发的一些思考（一）">
+<meta name="twitter:description" content="在公司开发，有很多时候我们需要独立去开发一些小的独立的项目，而且一般这种小的项目基本都是一个人来完成，但是往往我们去开发这些小的项目的时候希望可以快速的去将项目的整个框架搭建起来，不用过多去关注基础层的东西，而只需要去落实自己的业务代码和业务需求就可以了，今天就来总结一下自己对于快速搭建一个开发框架和基础代码编写的一些想法。关于技术选型来说，在java中，框架的集大成者莫过于spring了，spr">
   
     <link rel="alternative" href="/atom.xml" title="顾小白的博客" type="application/atom+xml">
   
@@ -146,93 +146,51 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-MySQL 处理数据时的一些优化查询速度方法" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-浅谈快速开发的一些思考（一）" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      MySQL 处理数据时的一些优化查询速度方法
+      浅谈快速开发的一些思考（一）
     </h1>
   
 
         
-        <a href="/2017/10/20/MySQL 处理数据时的一些优化查询速度方法/" class="archive-article-date">
-  	<time datetime="2017-10-20T13:21:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-20</time>
+        <a href="/2017/12/10/浅谈快速开发的一些思考（一）/" class="archive-article-date">
+  	<time datetime="2017-12-10T13:21:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在参与实际项目中，当 MySQL 表的数据量达到百万级时，普通的 SQL 查询效率呈直线下降，而且如果 where 中的查询条件较多时，其查询速度无法容忍。想想可知，假如我们查询淘宝的一个订单详情，如果查询时间高达几十秒，这么高的查询延时，任何用户都会抓狂。因此如何提高 SQL 语句查询效率，显得十分重要。</p>
-<h3 id="查询速度慢的原因"><a href="#查询速度慢的原因" class="headerlink" title="查询速度慢的原因"></a>查询速度慢的原因</h3><hr>
-<p>1、没有索引或者没有用到索引（这是查询慢最常见的问题，是程序设计的缺陷）</p>
-<p>2、I/O 吞吐量小，形成了瓶颈效应。</p>
-<p>3、没有创建计算列导致查询不优化。</p>
-<p>4、内存不足</p>
-<p>5、网络速度慢</p>
-<p>6、查询出的数据量过大（可采用多次查询，其他的方法降低数据量）</p>
-<p>7、锁或者死锁（这是查询慢最常见的问题，是程序设计的缺陷）</p>
-<p>8、sp_lock,sp_who,活动的用户查看,原因是读写竞争资源。</p>
-<p>9、返回了不必要的行和列</p>
-<p>10、查询语句不好，没有优化</p>
-<h3 id="30-种-SQL-查询语句的优化方法："><a href="#30-种-SQL-查询语句的优化方法：" class="headerlink" title="30 种 SQL 查询语句的优化方法："></a>30 种 SQL 查询语句的优化方法：</h3><hr>
-<p>1、应尽量避免在 where 子句中使用 != 或者 &lt;&gt; 操作符，否则将引擎放弃使用索引而进行全表扫描。</p>
-<p>2、应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描，如：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span> <span class="keyword">is</span> <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
-<p>可以在 num 上设置默认值 0 ，确保表中 num 列没有 null 值，然后这样查询：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span> = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
-<p>3、对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。</p>
-<p>4、尽量避免在 where 子句中使用 or 来连接条件，否则将导致引擎放弃使用索引而进行全表扫描，如：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span> = <span class="number">10</span> <span class="keyword">or</span> <span class="keyword">num</span> = <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
-<p>可以这样查询：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span> = <span class="number">10</span></span><br><span class="line"><span class="keyword">union</span> all</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span> = <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
-<p>5、下面的查询也将导致全表扫描：（不能前置百分号）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">name</span> <span class="keyword">like</span> <span class="string">'%abc%'</span>;</span><br></pre></td></tr></table></figure>
-<p>若要提高效率，可以考虑全文检索。<br>6、in 和 not in 也要慎用，否则会导致全表扫描，如：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span> <span class="keyword">in</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
-<p>对于连续的数值，能用 between 就不要用 in 了：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span> <span class="keyword">between</span> <span class="number">1</span> <span class="keyword">and</span> <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> xx,phone <span class="keyword">FROM</span> send  a <span class="keyword">JOIN</span> (</span><br><span class="line"> <span class="keyword">select</span> <span class="string">'13891030091'</span> phone  <span class="keyword">union</span> <span class="keyword">select</span> <span class="string">'13992085916'</span> …………  <span class="keyword">UNION</span>  <span class="keyword">SELECT</span> <span class="string">'13619100234'</span> ) b</span><br><span class="line">  <span class="keyword">on</span>  a.Phone=b.phone</span><br><span class="line"><span class="comment">--替代下面  很多数据隔开的时候</span></span><br><span class="line"><span class="keyword">in</span>(<span class="string">'13891030091'</span>,<span class="string">'13992085916'</span>,<span class="string">'13619100234'</span>…………)</span><br></pre></td></tr></table></figure>
-<p>7、如果在 where 子句中使用参数，也会导致全表扫描。因为 SQL 只有在运行时才会解析局部变量，但优化程序不能将访问计划的选择到运行时；它必须在编译时进行选择。然而，如果在编译时简历访问计划，变量的值还是未知的，因而无法作为索引选择的输入项。如下面语句将进行全表扫描：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span> = @<span class="keyword">num</span>;</span><br></pre></td></tr></table></figure>
-<p>可以改为强制查询使用索引：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">with</span>(<span class="keyword">index</span>(索引名)) <span class="keyword">where</span> <span class="keyword">num</span> = @<span class="keyword">num</span>;</span><br></pre></td></tr></table></figure>
-<p>8、应尽量避免在 where 子句中对字段进行表达式操作，这将导致引擎放弃使用索引而进行全表扫描。如：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span>/<span class="number">2</span> = <span class="number">100</span>;</span><br></pre></td></tr></table></figure>
-<p>应改为：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span> = <span class="number">100</span> * <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
-<p>9、应尽量避免在 where 子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描。如：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">substring</span>(<span class="keyword">name</span>, <span class="number">1</span>, <span class="number">3</span>) = ’abc’–<span class="keyword">name</span>;  //以abc开头的id</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">datediff</span>(<span class="keyword">day</span>,createdate,’<span class="number">2005</span><span class="number">-11</span><span class="number">-30</span>′) = <span class="number">0</span>–’<span class="number">2005</span><span class="number">-11</span><span class="number">-30</span>′;  //生成的id</span><br></pre></td></tr></table></figure>
-<p>应改为：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">name</span> <span class="keyword">like</span> ‘abc%’</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> createdate &gt;= ’<span class="number">2005</span><span class="number">-11</span><span class="number">-30</span>′ <span class="keyword">and</span> createdate &lt; ’<span class="number">2005</span><span class="number">-12</span><span class="number">-1</span>′;</span><br></pre></td></tr></table></figure>
-<p>10、不要在 where 子句中的 “=” 左边进行函数，算术运算或者其他表达式运算，否则系统将可能无法正确使用索引。</p>
-<p>11、在使用索引字段作为条件时，如果该索引是复合索引，那么必须使用到该索引的第一个字段作为条件时才能保证系统使用该索引，否则该索引将不会被使用，并且应尽可能的让字段顺序与索引顺序相一致。</p>
-<p>12、对于大数据量的查询分页进行前置条件控制来提高查询速度，比如可以通过主键id来缩小范围然后limit.<br>13、很多时候用 exists 代替 in 是一个好的选择：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">num</span> <span class="keyword">from</span> a <span class="keyword">where</span> <span class="keyword">num</span> <span class="keyword">in</span>(<span class="keyword">select</span> <span class="keyword">num</span> <span class="keyword">from</span> b);</span><br></pre></td></tr></table></figure>
-<p>用下面的语句替换：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">num</span> <span class="keyword">from</span> a <span class="keyword">where</span> <span class="keyword">exists</span>(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> b <span class="keyword">where</span> <span class="keyword">num</span>=a.num);</span><br></pre></td></tr></table></figure>
-<p>14、并不是所有索引对查询都有效，SQL是根据表中数据来进行查询优化的，当索引列有大量数据重复时，SQL查询可能不会去利用索引，如一表中有字段 sex，male、female几乎各一半，那么即使在sex上建了索引也对查询效率起不了作用。</p>
-<p>15、索引并不是越多越好，索引固然可以提高相应的 select 的效率，但同时也降低了 insert 及 update 的效率，因为 insert 或 update 时有可能会重建索引，所以怎样建索引需要慎重考虑，视具体情况而定。一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。</p>
-<p>16、应尽可能的避免更新 clustered 索引数据列，因为 clustered 索引数据列的顺序就是表记录的物理存储顺序，一旦该列值改变将导致整个表记录的顺序的调整，会耗费相当大的资源。若应用系统需要频繁更新 clustered 索引数据列，那么需要考虑是否应将该索引建为 clustered 索引。</p>
-<p>17、尽量使用数字型字段，若只含数值信息的字段尽量不要设计为字符型，这会降低查询和连接的性能，并会增加存储开销。这是因为引擎在处理查询和连接时会 逐个比较字符串中每一个字符，而对于数字型而言只需要比较一次就够了。</p>
-<p>18、尽可能的使用 varchar/nvarchar 代替 char/nchar ，因为首先变长字段存储空间小，可以节省存储空间，其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。</p>
-<p>19、任何地方都不要使用 select <em> from t ，用具体的字段列表代替 </em>，不要返回用不到的任何字段。</p>
-<p>20、尽量使用表变量来代替临时表。如果表变量包含大量数据，请注意索引非常有限（只有主键索引）。</p>
-<p>21、避免频繁创建和删除临时表，以减少系统表资源的消耗。</p>
-<p>22、临时表并不是不可使用，适当地使用它们可以使某些例程更有效，例如，当需要重复引用大型表或常用表中的某个数据集时。但是，对于一次性事件，最好使用导出表。</p>
-<p>23、在新建临时表时，如果一次性插入数据量很大，那么可以使用 select into 代替 create table，避免造成大量 log ，以提高速度；如果数据量不大，为了缓和系统表的资源，应先 create table，然后 insert。</p>
-<p>24、如果使用到了临时表，在存储过程的最后务必将所有的临时表显式删除，先 truncate table ，然后 drop table ，这样可以避免系统表的较长时间锁定。</p>
-<p>25、尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过1万行，那么就应该考虑改写。</p>
-<p>26、使用基于游标的方法或临时表方法之前，应先寻找基于集的解决方案来解决问题，基于集的方法通常更有效。</p>
-<p>27、与临时表一样，游标并不是不可使用。对小型数据集使用 FAST_FORWARD 游标通常要优于其他逐行处理方法，尤其是在必须引用几个表才能获得所需的数据时。在结果集中包括“合计”的例程通常要比使用游标执行的速度快。如果开发时 间允许，基于游标的方法和基于集的方法都可以尝试一下，看哪一种方法的效果更好。</p>
-<p>28、在所有的存储过程和触发器的开始处设置 SET NOCOUNT ON ，在结束时设置 SET NOCOUNT OFF 。无需在执行存储过程和触发器的每个语句后向客户端发送 DONE_IN_PROC 消息。</p>
-<p>29、尽量避免向客户端返回大数据量，若数据量过大，应该考虑相应需求是否合理。</p>
-<p>30、尽量避免大事务操作，提高系统并发能力。</p>
-<p>查看sql的执行性能，explan 如：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> t_order;</span><br></pre></td></tr></table></figure>
+        <p>在公司开发，有很多时候我们需要独立去开发一些小的独立的项目，而且一般这种小的项目基本都是一个人来完成，但是往往我们去开发这些小的项目的时候希望可以快速的去将项目的整个框架搭建起来，不用过多去关注基础层的东西，而只需要去落实自己的业务代码和业务需求就可以了，今天就来总结一下自己对于快速搭建一个开发框架和基础代码编写的一些想法。<br>关于技术选型来说，在java中，框架的集大成者莫过于spring了，spring在我看来一个是一个完备的java web项目的技术解决方案了，兼顾了灵活和强大功能了。关于spring框架的选择，我选择用spring boot来作为基础框架</p>
+<h3 id="why-springboot"><a href="#why-springboot" class="headerlink" title="why springboot"></a>why springboot</h3><p>Spring Boot让我们的Spring应用变的更轻量化。比如：你可以仅仅依靠一个Java类来运行一个Spring引用。你也可以打包你的应用为jar并通过使用java -jar来运行你的Spring Web应用。<br>Spring Boot的主要优点：</p>
+<ul>
+<li>为所有Spring开发者更快的入门</li>
+<li>开箱即用，提供各种默认配置来简化项目配置</li>
+<li>内嵌式容器简化Web项目</li>
+<li>没有冗余代码生成和XML配置的要求</li>
+</ul>
+<p>在我看来springboot就是springMVC+Tomcat嵌入式+一些针对第三方框架的整合starter，这是我理解的springboot</p>
+<h1 id="快速开启一个springboot"><a href="#快速开启一个springboot" class="headerlink" title="快速开启一个springboot"></a>快速开启一个springboot</h1><p>1、通过SPRING INITIALIZR工具产生基础项目<br>访问<a href="http://start.spring.io/" target="_blank" rel="noopener">spring io</a>提供了一个在线生成项目基础代码的工具，选择对应的版本然后点击Generate Project下载项目压缩包<br>2、可以通过idea自带的项目初始化工具来进行项目的初始化，<br>file-new project-spring INITIALIZR来选择版本信息和依赖信息</p>
+<h2 id="引入Web模块"><a href="#引入Web模块" class="headerlink" title="引入Web模块"></a>引入Web模块</h2><p>当前的pom.xml内容如下，仅引入了两个模块：</p>
+<ul>
+<li>spring-boot-starter：核心模块，包括自动配置支持、日志和YAML</li>
+<li>spring-boot-starter-test：测试模块，包括JUnit、Hamcrest、Mockito</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>引入Web模块，需添加spring-boot-starter-web模块：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>编写第一个web服务</p>
+<ul>
+<li>创建package命名为com.demo.web（根据实际情况修改）</li>
+<li>创建HelloController类，内容如下</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello World"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动主程序，打开浏览器访问<a href="http://localhost:8080/hello，可以看到页面输出Hello" target="_blank" rel="noopener">http://localhost:8080/hello，可以看到页面输出Hello</a> World</p>
 
       
 
@@ -277,7 +235,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术杂谈</a>
         		</li>
       		
 		</ul>
@@ -333,7 +291,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/10/20/MySQL 处理数据时的一些优化查询速度方法/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/12/10/浅谈快速开发的一些思考（一）/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -347,18 +305,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/12/10/浅谈快速开发的一些思考（一）/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/02/22/2018写给自己/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          浅谈快速开发的一些思考（一）
+          2018愿你做最美好的自己！
         
       </div>
     </a>
   
   
-    <a href="/2017/10/04/spring-security初探/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">spring-security初探</div>
+    <a href="/2017/10/20/MySQL 处理数据时的一些优化查询速度方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MySQL 处理数据时的一些优化查询速度方法</div>
       <i class="icon-circle-right"></i>
     </a>
   
