@@ -234,6 +234,206 @@
 
 
   
+    <article id="post-浅谈快速开发的一些思考（四）异常处理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/22/浅谈快速开发的一些思考（四）异常处理/">浅谈快速开发的一些思考（四）异常处理</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/22/浅谈快速开发的一些思考（四）异常处理/" class="archive-article-date">
+  	<time datetime="2017-12-22T13:21:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通常在业务代码中我是不需要进行异常处理，我们只定义异常，然后在web层统一处理系统异常和业务异常，这样也方便我去做一些统一的返回的处理，也减少我们的工作量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ApiExceptionHandler</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Logger logger = LoggerFactory.getLogger(getClass());</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 自定义异常</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@ExceptionHandler</span>(ApiException.class)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> ApiResult <span class="title">handleApiException</span><span class="params">(ApiException e)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (e.getCode() == -<span class="number">1</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> ApiResult.noLogin();</span><br><span class="line">		&#125;</span><br><span class="line">		logger.error(e.getMessage(), e);</span><br><span class="line">		<span class="keyword">return</span> ApiResult.error(e.getCode(),e.getMessage());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@ExceptionHandler</span>(DuplicateKeyException.class)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> ApiResult <span class="title">handleDuplicateKeyException</span><span class="params">(DuplicateKeyException e)</span></span>&#123;</span><br><span class="line">		logger.error(e.getMessage(), e);</span><br><span class="line">		<span class="keyword">return</span> ApiResult.error(<span class="string">"数据库中已存在该记录"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@ExceptionHandler</span>(NullPointerException.class)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> ApiResult <span class="title">handleNullException</span><span class="params">(NullPointerException e)</span></span>&#123;</span><br><span class="line">		logger.error(e.getMessage(), e);</span><br><span class="line">		<span class="keyword">return</span> ApiResult.error(<span class="string">"数据处理异常"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@ExceptionHandler</span>(Exception.class)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> ApiResult <span class="title">handleException</span><span class="params">(Exception e)</span></span>&#123;</span><br><span class="line">		logger.error(e.getMessage(), e);</span><br><span class="line">		<span class="keyword">return</span> ApiResult.error(e.getMessage());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面的这个类上我们进行统一的异常处理，来解析和返回响应</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术杂谈</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/22/浅谈快速开发的一些思考（四）异常处理/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-浅谈快速开发的一些思考（三）aop规范" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/17/浅谈快速开发的一些思考（三）aop规范/">浅谈快速开发的一些思考（三）aop规范</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/17/浅谈快速开发的一些思考（三）aop规范/" class="archive-article-date">
+  	<time datetime="2017-12-17T13:21:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>说道spring就不得不说一说spring aop，真的是一大利器呀.<br>AOP（Aspect Oriented Programming），即面向切面编程，可以说是OOP（Object Oriented Programming，面向对象编程）的补充和完善。OOP引入封装、继承、多态等概念来建立一种对象层次结构，用于模拟公共行为的一个集合。不过OOP允许开发者定义纵向的关系，但并不适合定义横向的关系，例如日志功能。日志代码往往横向地散布在所有对象层次中，而与它对应的对象的核心功能毫无关系对于其他类型的代码，如安全性、异常处理和透明的持续性也都是如此，这种散布在各处的无关的代码被称为横切（cross cutting），在OOP设计中，它导致了大量代码的重复，而不利于各个模块的重用。</p>
+<p>AOP技术恰恰相反，它利用一种称为”横切”的技术，剖解开封装的对象内部，并将那些影响了多个类的公共行为封装到一个可重用模块，并将其命名为”Aspect”，即切面。所谓”切面”，简单说就是那些与业务无关，却为业务模块所共同调用的逻辑或责任封装起来，便于减少系统的重复代码，降低模块之间的耦合度，并有利于未来的可操作性和可维护性。</p>
+<p>使用”横切”技术，AOP把软件系统分为两个部分：核心关注点和横切关注点。业务处理的主要流程是核心关注点，与之关系不大的部分是横切关注点。横切关注点的一个特点是，他们经常发生在核心关注点的多处，而各处基本相似，比如权限认证、日志、事物。AOP的作用在于分离系统中的各种关注点，将核心关注点和横切关注点分离开来。</p>
+<h2 id="AOP核心概念"><a href="#AOP核心概念" class="headerlink" title="AOP核心概念"></a>AOP核心概念</h2><p>1、横切关注点</p>
+<p>对哪些方法进行拦截，拦截后怎么处理，这些关注点称之为横切关注点</p>
+<p>2、切面（aspect）</p>
+<p>类是对物体特征的抽象，切面就是对横切关注点的抽象</p>
+<p>3、连接点（joinpoint）</p>
+<p>被拦截到的点，因为Spring只支持方法类型的连接点，所以在Spring中连接点指的就是被拦截到的方法，实际上连接点还可以是字段或者构造器</p>
+<p>4、切入点（pointcut）</p>
+<p>对连接点进行拦截的定义</p>
+<p>5、通知（advice）</p>
+<p>所谓通知指的就是指拦截到连接点之后要执行的代码，通知分为前置、后置、异常、最终、环绕通知五类</p>
+<p>6、目标对象</p>
+<p>代理的目标对象</p>
+<p>7、织入（weave）</p>
+<p>将切面应用到目标对象并导致代理对象创建的过程</p>
+<p>8、引入（introduction）</p>
+<p>在不修改代码的前提下，引入可以在运行期为类动态地添加一些方法或字段</p>
+<h2 id="Spring对AOP的支持"><a href="#Spring对AOP的支持" class="headerlink" title="Spring对AOP的支持"></a>Spring对AOP的支持</h2><p>Spring中AOP代理由Spring的IOC容器负责生成、管理，其依赖关系也由IOC容器负责管理。因此，AOP代理可以直接使用容器中的其它bean实例作为目标，这种关系可由IOC容器的依赖注入提供。Spring创建代理的规则为：</p>
+<p>1、默认使用Java动态代理来创建AOP代理，这样就可以为任何接口实例创建代理了</p>
+<p>2、当需要代理的类不是代理接口的时候，Spring会切换为使用CGLIB代理，也可强制使用CGLIB</p>
+<p>AOP编程其实是很简单的事情，纵观AOP编程，程序员只需要参与三个部分：</p>
+<p>1、定义普通业务组件</p>
+<p>2、定义切入点，一个切入点可能横切多个业务组件</p>
+<p>3、定义增强处理，增强处理就是在AOP框架为普通业务组件织入的处理动作</p>
+<p>所以进行AOP编程的关键就是定义切入点和定义增强处理，一旦定义了合适的切入点和增强处理，AOP框架将自动生成AOP代理，即：代理对象的方法=增强处理+被代理对象的方法。</p>
+<p>废话不多说了直接上我项目中用到的aop</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//线程变量用于记录线程内变量来计算内部响应时间</span></span><br><span class="line">ThreadLocal&lt;Long&gt; startTime = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line"><span class="meta">@Pointcut</span>(<span class="string">"execution(public * com.demo.controller..*.*(..))"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">webLog</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"><span class="meta">@Before</span>(<span class="string">"webLog()"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doBefore</span><span class="params">(JoinPoint joinPoint)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">    <span class="comment">// 记录下请求内容</span></span><br><span class="line">    logger.info(<span class="string">"CLASS_METHOD : &#123;&#125;"</span>,joinPoint.getSignature().getDeclaringTypeName() + <span class="string">"."</span> + joinPoint.getSignature().getName());</span><br><span class="line">    Object[] args = joinPoint.getArgs();</span><br><span class="line">    logger.info(<span class="string">"ARGS : &#123;&#125;"</span> ,Arrays.toString(args));</span><br><span class="line">    <span class="comment">//处理参数校验错误</span></span><br><span class="line">    <span class="keyword">for</span> (Object arg : args) &#123;</span><br><span class="line">        <span class="keyword">if</span> (arg <span class="keyword">instanceof</span> BindingResult)&#123;</span><br><span class="line">            BindingResult bindingResult = (BindingResult) arg;</span><br><span class="line">            <span class="keyword">if</span> (bindingResult.hasErrors())&#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> ApiException(ValidateUtil.toStringJson(bindingResult), ApiResult.VALIDATE);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    startTime.set(System.currentTimeMillis());</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@AfterReturning</span>(returning = <span class="string">"ret"</span>, pointcut = <span class="string">"webLog()"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAfterReturning</span><span class="params">(Object ret)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">    <span class="comment">// 处理完请求，返回内容</span></span><br><span class="line">    logger.info(<span class="string">"response : &#123;&#125;"</span> , ret);</span><br><span class="line">    logger.info(<span class="string">"spendTime : &#123;&#125;"</span>,(System.currentTimeMillis() - startTime.get()));</span><br><span class="line">    startTime.remove();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的日志只处理进入我们的controller之前的日志记录，所以这些日志记录的都是我们定好的接口访问日志，如果想记录比较完备的request请求信息建议使用interceptor连记录</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    logger.info(<span class="string">"request:&#123;&#125;"</span>, RequestUtils.dump(request));</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.preHandle(request, response, handler);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">dump</span><span class="params">(HttpServletRequest request)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    HashMap&lt;String, Object&gt; hashMap = <span class="keyword">new</span> LinkedHashMap&lt;&gt;();</span><br><span class="line">    hashMap.put(<span class="string">"url"</span>, request.getRequestURL());</span><br><span class="line">    hashMap.put(<span class="string">"method"</span>, request.getMethod());</span><br><span class="line">    hashMap.put(<span class="string">"remoteAddr"</span>, request.getRemoteAddr());</span><br><span class="line">    hashMap.put(<span class="string">"remoteHost"</span>, request.getRemoteHost());</span><br><span class="line">    Cookie[] cookies = request.getCookies();</span><br><span class="line">    <span class="keyword">if</span> (cookies != <span class="keyword">null</span>) &#123;</span><br><span class="line">        Object[] cookieArray = <span class="keyword">new</span> Object[cookies.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cookies.length; i++) &#123;</span><br><span class="line">            Cookie cookie = cookies[i];</span><br><span class="line">            HashMap&lt;String, Object&gt; cookieMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">            cookieMap.put(<span class="string">"name"</span>, cookie.getName());</span><br><span class="line">            cookieMap.put(<span class="string">"value"</span>, cookie.getValue());</span><br><span class="line">            cookieMap.put(<span class="string">"maxAge"</span>, cookie.getMaxAge());</span><br><span class="line">            cookieMap.put(<span class="string">"path"</span>, cookie.getPath());</span><br><span class="line">            cookieArray[i] = cookieMap;</span><br><span class="line">        &#125;</span><br><span class="line">        hashMap.put(<span class="string">"cookies"</span>, cookieArray);</span><br><span class="line">    &#125;</span><br><span class="line">    Map&lt;String, String&gt; parameters = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    request.getParameterMap().entrySet().parallelStream().forEach(e -&gt; &#123;</span><br><span class="line">        String valueStr = Arrays.toString(e.getValue());</span><br><span class="line">        parameters.put(e.getKey(), valueStr.substring(<span class="number">0</span>, Math.min(<span class="number">64</span>, valueStr.length())));</span><br><span class="line">    &#125;);</span><br><span class="line">    hashMap.put(<span class="string">"parameters"</span>, parameters);</span><br><span class="line">    HashMap&lt;String, Object&gt; headerMap = <span class="keyword">new</span> LinkedHashMap&lt;&gt;();</span><br><span class="line">    Enumeration&lt;String&gt; headerNames = request.getHeaderNames();</span><br><span class="line">    <span class="keyword">while</span> (headerNames.hasMoreElements()) &#123;</span><br><span class="line">        String name = headerNames.nextElement();</span><br><span class="line">        String value = request.getHeader(name);</span><br><span class="line">        headerMap.put(name, value);</span><br><span class="line">    &#125;</span><br><span class="line">    hashMap.put(<span class="string">"headers"</span>, headerMap);</span><br><span class="line">    <span class="keyword">return</span> JSONObject.toJSONString(hashMap);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样我们就完成了对于请求日志记录，方法调用日志的记录，同时还进行了通用的参数校验<br>参数校验其实同样很简单，springboot默认就集成了参数校验</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 添加用户2</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> userInfo</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"/createUser2"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">createUser2</span><span class="params">(@Valid UserInfo userInfo, BindingResult bindingResult)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"OK"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样我们的aop就可以通过解析我们上面的bindingResult来进行统一的参数校验了<br>下面是一些常见的校验注解<br>@null           验证对象是否为空</p>
+<p>@notnull     验证对象是否为非空</p>
+<p>@asserttrue       验证 boolean 对象是否为 true</p>
+<p>@assertfalse      验证 boolean 对象是否为 false</p>
+<p>@min           验证 number 和 string 对象是否大等于指定的值</p>
+<p>@max           验证 number 和 string 对象是否小等于指定的值</p>
+<p>@decimalmin    验证 number 和 string 对象是否大等于指定的值，小数存在精度</p>
+<p>@decimalmax    验证 number 和 string 对象是否小等于指定的值，小数存在精度</p>
+<p>@size           验证对象（array,collection,map,string）长度是否在给定的范围之内</p>
+<p>@digits       验证 number 和 string 的构成是否合法</p>
+<p>@past           验证 date 和 calendar 对象是否在当前时间之前</p>
+<p>@future       验证 date 和 calendar 对象是否在当前时间之后</p>
+<p>@pattern     验证 string 对象是否符合正则表达式的规则</p>
+<p>@Email     验证邮箱</p>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@size</span> (min=<span class="number">3</span>, max=<span class="number">20</span>, message=<span class="string">"用户名长度只能在3-20之间"</span>)</span><br><span class="line"><span class="meta">@size</span> (min=<span class="number">6</span>, max=<span class="number">20</span>, message=<span class="string">"密码长度只能在6-20之间"</span>)</span><br><span class="line"><span class="meta">@pattern</span> (regexp=<span class="string">"[a-za-z0-9._%+-]+@[a-za-z0-9.-]+\\.[a-za-z]&#123;2,4&#125;"</span>, message=<span class="string">"邮件格式错误"</span>)</span><br><span class="line"><span class="meta">@Length</span>(min = <span class="number">5</span>, max = <span class="number">20</span>, message = <span class="string">"用户名长度必须位于5到20之间"</span>)  </span><br><span class="line"><span class="meta">@Email</span>(message = <span class="string">"比如输入正确的邮箱"</span>)  </span><br><span class="line"><span class="meta">@NotNull</span>(message = <span class="string">"用户名称不能为空"</span>) </span><br><span class="line"><span class="meta">@Max</span>(value = <span class="number">100</span>, message = <span class="string">"年龄不能大于100岁"</span>) </span><br><span class="line"><span class="meta">@Min</span>(value= <span class="number">18</span> ,message= <span class="string">"必须年满18岁！"</span> )  </span><br><span class="line"><span class="meta">@AssertTrue</span>(message = <span class="string">"bln4 must is true"</span>)</span><br><span class="line"><span class="meta">@AssertFalse</span>(message = <span class="string">"blnf must is falase"</span>)</span><br><span class="line"><span class="meta">@DecimalMax</span>(value=<span class="string">"100"</span>,message=<span class="string">"decim最大值是100"</span>)</span><br><span class="line"><span class="meta">@DecimalMin</span>(value=<span class="string">"100"</span>,message=<span class="string">"decim最小值是100"</span>)</span><br><span class="line"><span class="meta">@NotNull</span>(message = <span class="string">"身份证不能为空"</span>) </span><br><span class="line"><span class="meta">@Pattern</span>(regexp=<span class="string">"^(\\d&#123;18,18&#125;|\\d&#123;15,15&#125;|(\\d&#123;17,17&#125;[x|X]))$"</span>, message=<span class="string">"身份证格式错误"</span>)</span><br></pre></td></tr></table></figure>
+<p>当然后台的参数校验是为了解决那些可以绕过前端校验的那些人才做的，也是为了提高系统的安全性和健壮性</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术杂谈</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/17/浅谈快速开发的一些思考（三）aop规范/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-浅谈快速开发的一些思考（二）controller规范" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -811,19 +1011,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">技术杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring-security</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
             
             <div class="clearfix"></div>
